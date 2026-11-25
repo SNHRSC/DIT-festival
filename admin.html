@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ผู้ดูแล · กิจกรรมเทศกาล</title>
+<style>
+body{margin:0;font-family:"Sarabun","Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;background:#f4f6fb;color:#1d2340}
+main{max-width:1100px;margin:0 auto;padding:28px 18px}
+h1{font-size:24px;margin:0 0 16px}
+.box{background:#fff;border-radius:14px;padding:18px;box-shadow:0 4px 16px rgba(30,40,90,.06)}
+input,select{font:inherit;padding:8px 10px;border:1px solid #cfd5e6;border-radius:8px}
+button{font:inherit;padding:8px 14px;border-radius:8px;border:1px solid #cfd5e6;background:#fff;cursor:pointer}
+button.p{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.stat{color:#5b6383;font-size:14px;margin-left:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid #eef0f6;vertical-align:top}
+th{color:#5b6383;font-weight:600;background:#fafbfe;position:sticky;top:0}
+tr.h td{opacity:.45;text-decoration:line-through}
+.badge{font-size:13px;padding:3px 10px;border-radius:99px;font-weight:600}
+.badge.open{background:#dcfce7;color:#166534}.badge.soon{background:#fef3c7;color:#92400e}.badge.ended{background:#fee2e2;color:#991b1b}
+.modes{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0 10px}
+.modes label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:620px}
+.grid2 label,.full{display:flex;flex-direction:column;gap:4px;font-size:14px;color:#5b6383}
+.full{margin-top:10px;max-width:620px}
+.full textarea{font:inherit;padding:8px 10px;border:1px solid #cfd5e6;border-radius:8px}
+.chk{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:14px}
+.hintx{font-size:12px;color:#8a90aa;margin-top:8px}
+td.txt{max-width:420px;word-break:break-word}
+.reps{margin-top:6px;font-size:13px;color:#4b5375}
+.rep{padding:2px 0}.rep a{color:#1d4ed8;margin-left:4px}
+.rep.h span{text-decoration:line-through;opacity:.5}
+.err{color:#c0262d;margin-top:8px}
+</style>
+</head>
+<body>
+<main>
+  <h1>🛠️ ผู้ดูแล · ลอยกระทงออนไลน์ 2569</h1>
+  <div class="err" id="warn" style="margin-bottom:12px"></div>
+  <div class="box" id="login" hidden>
+    <p id="lmsg">เข้าสู่ระบบผู้ดูแล</p><noscript>กรุณาเปิด JavaScript หรือใช้ Chrome / Edge</noscript>
+    <input type="password" id="pw" placeholder="รหัสผ่าน"> <button class="p" id="go">เข้าสู่ระบบ</button>
+    <div class="err" id="lerr"></div>
+  </div>
+  <div class="box" id="setbox" hidden style="margin-bottom:16px">
+    <div class="bar" style="margin-bottom:6px"><b style="font-size:17px">📅 กำหนดวันกิจกรรม & เปิด/ปิด</b><span id="stBadge" class="badge"></span></div>
+    <div class="modes">
+      <label><input type="radio" name="mode" value="auto"> ⏱️ อัตโนมัติตามวันเวลา</label>
+      <label><input type="radio" name="mode" value="open"> 🟢 เปิดตลอด</label>
+      <label><input type="radio" name="mode" value="closed"> 🔴 ปิดกิจกรรม</label>
+    </div>
+    <div class="grid2">
+      <label>วันเวลาเริ่ม<input type="datetime-local" id="stStart"></label>
+      <label>วันเวลาจบ<input type="datetime-local" id="stEnd"></label>
+    </div>
+    <label class="full">ข้อความเมื่อจบกิจกรรม (แสดงเมื่อเปิดลิงก์เดิม)
+      <textarea id="stMsg" rows="3" maxlength="400"></textarea></label>
+    <label class="chk"><input type="checkbox" id="stArc"> ให้ดูคำอธิษฐานย้อนหลังได้หลังจบกิจกรรม (ลอย/ตอบเพิ่มไม่ได้)</label>
+    <div class="bar" style="margin-top:10px"><button class="p" id="stSave">บันทึกการตั้งค่า</button><span id="stMsgOut" class="stat" style="margin-left:0"></span></div>
+    <div class="hintx">อัตโนมัติ = ก่อนวันเริ่มขึ้น "ยังไม่เริ่ม" พร้อมนับถอยหลัง · ระหว่างช่วงเวลาเปิดให้ร่วม · หลังวันจบขึ้นข้อความจบกิจกรรม · ปิดกิจกรรม = ขึ้นข้อความจบทันที (เปิดใหม่ได้)</div>
+  </div>
+  <div class="box" id="panel" hidden>
+    <div class="bar">
+      <input id="q" placeholder="ค้นหา" style="min-width:220px">
+      <select id="fv"><option value="">ทั้งหมด</option><option value="show">แสดงอยู่</option><option value="hide">ซ่อนแล้ว</option></select>
+      <button id="csv">⬇️ ส่งออก CSV</button>
+      <button id="csv2">🪙 ยอดเหรียญ CSV</button>
+      <a href="loykrathong/" target="_blank"><button>เปิดหน้าลอยกระทง</button></a>
+      <button id="out">ออกจากระบบ</button>
+      <span class="stat" id="stat"></span>
+    </div>
+    <div style="max-height:70vh;overflow:auto">
+      <table><thead><tr><th>เวลา</th><th>รหัส</th><th>ชื่อ / แผนก</th><th>ประเภท</th><th>ข้อความ</th><th>🙏</th><th></th></tr></thead><tbody id="tb"></tbody></table>
+    </div>
+  </div>
+</main>
+<script>
+const F='loykrathong-2569', API='api.php';
+let csrf=null, rows=[];
+const $=s=>document.querySelector(s);
+async function call(a, body){
+  const r = await fetch(API+'?action='+a+(body?'':'&f='+F), {method:body?'POST':'GET',credentials:'same-origin',cache:'no-store',
+    headers:body?{'Content-Type':'application/json','X-CSRF':csrf||''}:{}, body:body?JSON.stringify(Object.assign({f:F},body)):undefined});
+  const raw = await r.text(); let j;
+  try { j = JSON.parse(raw); } catch(e) { throw new Error('เซิร์ฟเวอร์ตอบกลับผิดรูปแบบ (HTTP '+r.status+'): '+raw.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,300)); }
+  if(!j.ok) throw new Error(j.error); return j;
+}
+async function init(){
+  let me;
+  try { me = await call('me'); }
+  catch(e){ $('#login').hidden=false; $('#pw').hidden=true; $('#go').hidden=true; $('#lmsg').textContent='เชื่อมต่อระบบไม่ได้'; $('#lerr').textContent=e.message; return; }
+  if (me.data_writable === false) $('#warn').textContent='⚠️ เว็บเซิร์ฟเวอร์เขียนโฟลเดอร์ data/ ไม่ได้ — พนักงานจะลอยกระทงและตั้งรหัสไม่ได้ ให้ IT เปิดสิทธิ์เขียนโฟลเดอร์ Festival/data';
+  if (me.admin){ csrf=me.csrf; show(); }
+  else { $('#login').hidden=false; if(me.setup) $('#lmsg').textContent='ตั้งรหัสผ่านผู้ดูแลครั้งแรก (อย่างน้อย 8 ตัวอักษร)'; $('#pw').focus(); }
+}
+$('#go').onclick = async ()=>{ try{ const j=await call('login',{password:$('#pw').value}); csrf=j.csrf; $('#login').hidden=true; show(); }catch(e){ $('#lerr').textContent=e.message; } };
+$('#pw').onkeydown = e=>{ if(e.key==='Enter') $('#go').click(); };
+$('#out').onclick = async ()=>{ await call('logout'); location.reload(); };
+$('#csv').onclick = ()=>location.href = API+'?action=export&f='+F;
+$('#csv2').onclick = ()=>location.href = API+'?action=export_coins&f='+F;
+$('#q').oninput = render; $('#fv').onchange = render;
+async function show(){ $('#panel').hidden=false; loadSettings(); try{ const j=await call('admin_list'); rows=j.items; render(); }catch(e){ $('#stat').textContent=e.message; } }
+function render(){
+  const q=$('#q').value.toLowerCase(), fv=$('#fv').value;
+  const arr=rows.filter(r=>(!fv||(fv==='hide')===!!r.hidden)&&(!q||(r.text+' '+r.name+' '+r.dept+' '+(r.empid||'')).toLowerCase().includes(q))).sort((a,b)=>b.t-a.t);
+  const vis=rows.filter(r=>!r.hidden).length;
+  $('#stat').textContent=`ทั้งหมด ${rows.length} · แสดง ${vis} · ซ่อน ${rows.length-vis} · ผู้ระบุแผนก ${new Set(rows.map(r=>r.dept).filter(Boolean)).size} แผนก`;
+  const tb=$('#tb'); tb.innerHTML='';
+  arr.forEach(r=>{ const tr=document.createElement('tr'); if(r.hidden) tr.className='h';
+    const cells=[new Date(r.t*1000).toLocaleString('th-TH'), r.empid||'—', (r.name||'—')+(r.dept?' / '+r.dept:''), r.kind==='bless'?'อวยพร':'ขอพร', r.text, r.bless||0];
+    cells.forEach((c,i)=>{ const td=document.createElement('td'); td.textContent=c; if(i===4) td.className='txt'; tr.appendChild(td);
+      if(i===4 && r.replies && r.replies.length){ const ul=document.createElement('div'); ul.className='reps';
+        r.replies.forEach(rp=>{ const li=document.createElement('div'); li.className='rep'+(rp.hidden?' h':'');
+          const sp=document.createElement('span'); sp.textContent='💬 '+(rp.name||'ไม่ระบุชื่อ')+(rp.empid?' ('+rp.empid+')':'')+': '+rp.text;
+          const hb=document.createElement('a'); hb.href='#'; hb.textContent=rp.hidden?'แสดง':'ซ่อน';
+          hb.onclick=async e=>{ e.preventDefault(); try{ await call('hide_reply',{id:r.id,rid:rp.id,hidden:!rp.hidden}); rp.hidden=!rp.hidden; render(); }catch(err){ alert(err.message); } };
+          li.append(sp,' ',hb); ul.appendChild(li); });
+        td.appendChild(ul); } });
+    const td=document.createElement('td'); const b=document.createElement('button'); b.textContent=r.hidden?'แสดง':'ซ่อน';
+    b.onclick=async()=>{ try{ await call('hide',{id:r.id,hidden:!r.hidden}); r.hidden=!r.hidden; render(); }catch(e){ alert(e.message); } };
+    td.appendChild(b); tr.appendChild(td); tb.appendChild(tr); });
+}
+const pad=n=>String(n).padStart(2,'0');
+const toLocal=ts=>{ if(!ts) return ''; const d=new Date(ts*1000); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const ST_TXT={open:'🟢 กำลังเปิดอยู่',soon:'🟡 ยังไม่เริ่ม',ended:'🔴 จบ/ปิดแล้ว'};
+function paintStatus(j){ const b=$('#stBadge'); b.className='badge '+j.status; b.textContent=ST_TXT[j.status]||j.status; }
+async function loadSettings(){
+  $('#setbox').hidden=false;
+  try{ const j=await call('status');
+    document.querySelectorAll('input[name=mode]').forEach(r=>r.checked=(r.value===j.mode));
+    $('#stStart').value=toLocal(j.start); $('#stEnd').value=toLocal(j.end); $('#stMsg').value=j.endmsg||''; $('#stArc').checked=j.archive!==false; paintStatus(j);
+  }catch(e){ $('#stMsgOut').textContent=e.message; }
+}
+$('#stSave').onclick=async()=>{
+  const mode=(document.querySelector('input[name=mode]:checked')||{}).value||'open';
+  if(mode==='closed' && !confirm('ปิดกิจกรรมตอนนี้เลยใช่ไหม? ทุกคนที่เปิดลิงก์จะเห็นข้อความจบกิจกรรม')) return;
+  try{ const j=await call('settings_save',{mode,start:$('#stStart').value,end:$('#stEnd').value,start_ts:$('#stStart').value?Math.round(new Date($('#stStart').value).getTime()/1000):0,end_ts:$('#stEnd').value?Math.round(new Date($('#stEnd').value).getTime()/1000):0,endmsg:$('#stMsg').value,archive:$('#stArc').checked});
+    paintStatus(j); $('#stMsgOut').textContent='✅ บันทึกแล้ว · '+new Date().toLocaleTimeString('th-TH'); }
+  catch(e){ $('#stMsgOut').textContent='⚠️ '+e.message; }
+};
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>กิจกรรมเทศกาล · เฉพาะพนักงาน DIT · HR ONE</title>
+<style>
+:root{--font:"Sarabun","Noto Sans Thai","Leelawadee UI","Thonburi","Tahoma",system-ui,sans-serif;--gold:#ffd27a}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:var(--font);color:#1d2340;background:#f4f6fb}
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;color:#fff;padding:56px 20px 64px;
+  background:radial-gradient(70% 90% at 85% 0%,#3a4bb0 0%,transparent 60%),
+             radial-gradient(60% 80% at 0% 100%,#0a5fa8 0%,transparent 60%),
+             linear-gradient(160deg,#0b1238 0%,#16205a 55%,#0d2a6b 100%)}
+.hero::before{content:"";position:absolute;right:8%;top:38px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle at 38% 35%,#fffdf2,#f6dc93);box-shadow:0 0 50px 14px rgba(255,236,170,.35);opacity:.9}
+.hero .stars{position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(1.5px 1.5px at 12% 22%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 28% 64%,#fff 50%,transparent 51%),
+  radial-gradient(1.5px 1.5px at 46% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 58% 72%,#fff 50%,transparent 51%),
+  radial-gradient(1.5px 1.5px at 70% 40%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 88% 78%,#fff 50%,transparent 51%),
+  radial-gradient(1px 1px at 6% 82%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 38% 44%,#fff 50%,transparent 51%);opacity:.7}
+.wrap{position:relative;max-width:1000px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;font-size:14px;font-weight:700;
+  background:rgba(255,210,122,.16);border:1px solid rgba(255,210,122,.6);color:var(--gold);letter-spacing:.3px}
+.hero h1{margin:18px 0 10px;font-size:clamp(30px,5.2vw,52px);line-height:1.2;max-width:720px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero .lead{font-size:clamp(16px,2vw,19px);line-height:1.7;color:#d9def5;max-width:640px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 26px}
+.chip{padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);font-size:15px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:99px;font-size:17px;font-weight:700;text-decoration:none}
+.btn.gold{color:#2b1700;background:linear-gradient(180deg,#ffe29a,#f4a73b);box-shadow:0 8px 26px rgba(244,167,59,.45)}
+.btn.gold:hover{transform:translateY(-1px)}
+.btn.ghost{color:#fff;border:1px solid rgba(255,255,255,.35)}
+.live{font-size:15px;color:#d9def5}
+.live b{color:var(--gold);font-size:20px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.7);animation:pl 1.8s infinite;margin-right:6px;vertical-align:middle}
+@keyframes pl{70%{box-shadow:0 0 0 9px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+/* ---------- body ---------- */
+main{max-width:1000px;margin:-30px auto 0;padding:0 20px 40px;position:relative}
+.note{background:#fff;border-radius:16px;padding:16px 20px;box-shadow:0 8px 26px rgba(30,40,90,.08);display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.6;color:#3b4366}
+.note .ic{font-size:26px;line-height:1}
+h2.sec{font-size:22px;margin:34px 0 6px}
+.sub{color:#5b6383;margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{position:relative;border-radius:20px;padding:20px;min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;
+  color:#fff;text-decoration:none;overflow:hidden;box-shadow:0 10px 30px rgba(30,40,90,.12);transition:transform .2s}
+a.card:hover{transform:translateY(-3px)}
+.card .ic{position:absolute;right:14px;top:10px;font-size:54px}
+.card h3{margin:0;font-size:20px}
+.card p{margin:4px 0 0;font-size:14px;opacity:.9}
+.pill{position:absolute;left:16px;top:16px;font-size:12px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.25)}
+.card.on .pill{background:#ffd27a;color:#3a2300;font-weight:700}
+.soon{filter:saturate(.35);opacity:.8}
+.lk{background:radial-gradient(circle at 58% 24%,#fff3c8 0 8%,transparent 9%),linear-gradient(#1b2766,#0a1440)}
+.ny{background:linear-gradient(135deg,#7b3fe4,#e0417f)}
+.cn{background:linear-gradient(135deg,#c81d25,#f29c1f)}
+.sk{background:linear-gradient(135deg,#0091d5,#36c2a8)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px}
+.how div{background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 4px 14px rgba(30,40,90,.06);font-size:15px;line-height:1.55}
+.how b{display:block;font-size:16px;margin-bottom:2px}
+footer{margin-top:36px;color:#8a90aa;font-size:13px}
+@media (max-width:640px){.hero{padding:40px 18px 56px}.hero::before{width:70px;height:70px;top:24px;right:6%}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="stars"></div>
+  <div class="wrap">
+    <span class="badge">🔒 เฉพาะพนักงาน DIT เท่านั้น</span>
+    <h1>ชาว DIT มาร่วม<em>สนุกทุกเทศกาล</em>ไปด้วยกัน</h1>
+    <p class="lead">ทุกเทศกาลตลอดปี HR ชวนพนักงาน Daikin Industries (Thailand) มาร่วมกิจกรรมออนไลน์
+      ส่งคำอวยพร ขอพร และส่งต่อกำลังใจถึงเพื่อนร่วมงานทุกแผนก ร่วมได้ทั้งจากคอมพิวเตอร์และมือถือในเครือข่ายบริษัท</p>
+    <div class="chips">
+      <span class="chip">🪷 ลอยกระทง</span><span class="chip">🎆 ปีใหม่</span><span class="chip">🧧 ตรุษจีน</span><span class="chip">💦 สงกรานต์</span>
+    </div>
+    <div class="ctas">
+      <a class="btn gold" href="loykrathong/">🕯️ ร่วมลอยกระทงเลย</a>
+      <span class="live" id="live" hidden><span class="dot"></span>ชาว DIT ลอยกระทงแล้ว <b id="cnt">0</b> ใบ</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="note"><span class="ic">💙</span>
+    <div><b>พื้นที่ของพวกเราชาว DIT</b> · คำอวยพรทุกข้อความแสดงให้เพื่อนพนักงานเห็นร่วมกัน
+      ใส่ชื่อเล่น แผนก หรือรหัสพนักงาน (เพื่อแสดงรูป) ได้ตามสะดวก ไม่ใส่ก็ร่วมได้ ขอความร่วมมือใช้ถ้อยคำสุภาพ</div>
+  </div>
+
+  <h2 class="sec">กิจกรรมตลอดปี</h2>
+  <p class="sub">กิจกรรมใหม่จะเปิดตามเทศกาล ติดตามได้ที่หน้านี้</p>
+  <div class="grid">
+    <a class="card lk on" href="loykrathong/">
+      <span class="pill">กำลังจัด</span><span class="ic">🪷</span>
+      <h3>ลอยกระทงออนไลน์ 2569</h3><p>ลอยกระทง ขอพร และอวยพรเพื่อนร่วมงาน · 24 พ.ย. 2569</p>
+    </a>
+    <div class="card ny soon"><span class="pill">เร็ว ๆ นี้</span><span class="ic">🎆</span><h3>ส่งความสุขปีใหม่ 2570</h3><p>การ์ดอวยพรปีใหม่ถึงเพื่อนร่วมงาน</p></div>
+    <div class="card cn soon"><span class="pill">เร็ว ๆ นี้</span><span class="ic">🧧</span><h3>ตรุษจีน</h3><p>อั่งเปาคำอวยพร</p></div>
+    <div class="card sk soon"><span class="pill">เร็ว ๆ นี้</span><span class="ic">💦</span><h3>สงกรานต์</h3><p>รดน้ำขอพรออนไลน์</p></div>
+  </div>
+
+  <h2 class="sec">ร่วมง่าย ๆ 3 ขั้นตอน</h2>
+  <div class="how">
+    <div><b>1. เลือกกิจกรรม</b>กดการ์ดกิจกรรมที่กำลังจัด</div>
+    <div><b>2. ใส่คำอวยพร</b>เขียนคำขอพรหรือคำอวยพรถึงเพื่อน ๆ ชาว DIT</div>
+    <div><b>3. ส่งต่อความสุข</b>อ่านคำอวยพรของเพื่อน แล้วกด 🙏 ร่วมอวยพร</div>
+  </div>
+
+  <footer>HR Division · Daikin Industries (Thailand) Ltd. · Tel. 666 · <a href="admin.html" style="color:inherit">ผู้ดูแล</a></footer>
+</main>
+<script>
+let rev='';
+function liveCount(){
+  if (document.hidden) return;
+  fetch('api.php?action=since&f=loykrathong-2569&from=999999&rev='+encodeURIComponent(rev),{cache:'no-store'}).then(r=>r.json()).then(j=>{
+    if(!j || !j.ok) return; rev=j.rev; hubStatus(j); if(j.same) return;
+    if(j.count>0){ document.getElementById('cnt').textContent=j.count.toLocaleString('th-TH'); document.getElementById('live').hidden=false; }
+  }).catch(()=>{});
+}
+function hubStatus(j){
+  const card=document.querySelector('.card.lk'), pill=card.querySelector('.pill'), cta=document.querySelector('.btn.gold');
+  const d=ts=>new Date(ts*1000).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'});
+  if(j.status==='ended'){ pill.textContent='จบแล้ว'; card.classList.remove('on'); card.style.filter='saturate(.6)';
+    cta.textContent = j.archive ? '📜 ดูคำอธิษฐานย้อนหลัง' : '🪷 กิจกรรมลอยกระทงจบแล้ว'; document.getElementById('live').querySelector('.dot').style.background='#9ca3af'; }
+  else if(j.status==='soon'){ pill.textContent='เริ่ม '+d(j.start); card.classList.remove('on'); cta.textContent='🕯️ เริ่ม '+d(j.start)+' · ดูรายละเอียด'; }
+  else { pill.textContent='กำลังจัด'+(j.end?' · ถึง '+d(j.end):''); card.classList.add('on'); card.style.filter=''; cta.textContent='🕯️ ร่วมลอยกระทงเลย'; }
+}
+liveCount(); setInterval(liveCount, 5000);
+</script>
+</body>
+</html>
